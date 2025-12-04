@@ -1,6 +1,6 @@
 # Forensic Manifest:  AI-Generated Content (AIGC) Forensics Engine
 
-**Forensic Manifest** is an advanced, multi-modal digital evidence platform engineered to solve the rapidly escalating threat of AI-driven financial fraud across high-volume commerce sectors. Our core mission is to move beyond simple, vulnerable classification models to establish a **verifiable forensic reasoning engine** that generates high-integrity proof necessary for automated, high-stakes commercial decision-making.
+**Forensic Manifest** is an advanced, multi-modal digital evidence platform engineered to solve the rapidly escalating threat of AI-driven financial fraud across high-volume commerce sectors. My core mission is to move beyond simple, vulnerable classification models to establish a **verifiable forensic reasoning engine** that generates high-integrity proof necessary for automated, high-stakes commercial decision-making.
 
 The system is designed to serve as a crucial, trusted oracle, generating cryptographically durable evidence that ensures financial integrity and prevents fraudulent refund claims across e-commerce, food delivery, and logistics platforms.
 
@@ -28,7 +28,7 @@ To counter sophisticated, AI-driven fraud, **Forensic Manifest** leverages a con
 
 **Forensic Manifest** is currently in the active development phase. The architectural core, which includes multi-modal forensic fusion and VLM-based reasoning, is established and being optimized.
 
-The immediate roadmap is heavily focused on achieving **extreme robustness** and scientific generalizability. We are actively refining the feature extraction and reasoning protocols to ensure the system can reliably distinguish subtle AI artifacts from the common noise introduced by low-resolution uploads and lossy compression—the primary challenge for this high-volume fraud detection scenario.[5]
+The immediate roadmap is heavily focused on achieving **extreme robustness** and scientific generalizability. I am actively refining the feature extraction and reasoning protocols to ensure the system can reliably distinguish subtle AI artifacts from the common noise introduced by low-resolution uploads and lossy compression—the primary challenge for this high-volume fraud detection scenario.[5]
 
 ## Technology Stack and File Structure
 
@@ -53,10 +53,4 @@ The project utilizes a high-performance Python environment structured for scalab
 
 linkedin.com/in/chetanvyas20
 
------
-      * **API Docs:** `http://<Your_Local_IP>:8000/docs`
 
-<!-- end list -->
-
-```
-```
