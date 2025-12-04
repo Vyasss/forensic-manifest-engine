@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aegis GenAI Risk Engine</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f7f7;
+            min-height: 100vh;
+        }
+        .loading-ring {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-left-color: #2563eb;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center p-4">
+
+    <div class="w-full max-w-2xl bg-white shadow-xl rounded-xl p-8 space-y-6">
+        <h1 class="text-3xl font-bold text-gray-800 border-b pb-4">
+            GenAI Fraud Detection Engine
+        </h1>
+        <p class="text-gray-500">
+            Submit a claim image for analysis. The system uses ELA, PRNU, Frequency, and Gemini VLM for a comprehensive risk score.
+        </p>
+
+        <!-- Fraud Submission Form -->
+        <form id="fraud-check-form" class="space-y-6">
+            
+            <!-- User ID Input -->
+            <div>
+                <label for="user_id" class="block text-sm font-medium text-gray-700 mb-1">User ID</label>
+                <input type="text" id="user_id" name="user_id" placeholder="e.g., user-1001 (VIP) or user-1002 (Guest)" required 
+                       class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 transition duration-150">
+            </div>
+
+            <!-- Image Upload -->
+            <div>
+                <label for="image" class="block text-sm font-medium text-gray-700 mb-1">Claim Image (.jpg or .png)</label>
+                <input type="file" id="image" name="image" accept="image/*" required 
+                       class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 transition duration-150">
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" id="submit-button" disabled
+                    class="w-full flex justify-center items-center py-2 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-150 disabled:bg-gray-400">
+                <span id="button-text">Analyze Claim Image</span>
+            </button>
+        </form>
+
+        <!-- Results Display Area -->
+        <div id="results" class="hidden mt-6 pt-4 border-t border-gray-200 space-y-4">
+            <h2 class="text-2xl font-semibold text-gray-800">Analysis Result</h2>
+            
+            <div id="decision-box" class="p-4 rounded-lg">
+                <p class="text-lg font-bold">Decision: <span id="decision-text" class="ml-2"></span></p>
+                <p class="text-sm mt-1">P(Fraud): <span id="P_fraud"></span> | Threshold (T): <span id="T_threshold"></span> | Confidence: <span id="confidence"></span></p>
+            </div>
+
+            <p class="text-gray-600 border-l-4 border-gray-300 pl-3 py-1 bg-gray-50 rounded-r-md">
+                Reasoning: <span id="reasoning"></span>
+            </p>
+
+            <h3 class="text-xl font-semibold text-gray-800 pt-2">Forensic Breakdown</h3>
+            <div id="breakdown-grid" class="grid grid-cols-2 gap-4">
+                <!-- Breakdown scores inserted here by JS -->
+            </div>
+        </div>
+        
+        <!-- Error/Message Box -->
+        <div id="message-box" class="hidden p-3 mt-4 text-sm rounded-lg" role="alert"></div>
+
+    </div>
+
+    <script>
+        const API_URL = 'http://127.0.0.1:8000/api/v1/check';
+        const form = document.getElementById('fraud-check-form');
+        const submitButton = document.getElementById('submit-button');
+        const buttonText = document.getElementById('button-text');
+        const resultsDiv = document.getElementById('results');
+        const messageBox = document.getElementById('message-box');
+
+        // Enable button when required fields are filled
+        const checkInputs = () => {
+            const userId = document.getElementById('user_id').value;
+            const imageFile = document.getElementById('image').files.length > 0;
+            submitButton.disabled = !(userId && imageFile);
+        };
+
+        document.getElementById('user_id').addEventListener('input', checkInputs);
+        document.getElementById('image').addEventListener('change', checkInputs);
+
+        const showMessage = (message, type = 'error') => {
+            messageBox.textContent = message;
+            messageBox.className = `p-3 mt-4 text-sm rounded-lg transition duration-300 ${type === 'error' ? 'bg-red-100 text-red-700 border border-red-200' : 'bg-green-100 text-green-700 border border-green-200'}`;
+            messageBox.classList.remove('hidden');
+            resultsDiv.classList.add('hidden');
+        };
+
+        const displayResult = (data) => {
+            const { decision, P_fraud, T_threshold, confidence, reasoning, forensics_breakdown } = data;
+
+            // Set decision box styling
+            let decisionClass = '';
+            if (decision === 'APPROVE') {
+                decisionClass = 'bg-green-100 text-green-800 border-l-4 border-green-500';
+            } else if (decision === 'REJECT') {
+                decisionClass = 'bg-red-100 text-red-800 border-l-4 border-red-500';
+            } else { // MANUAL_REVIEW
+                decisionClass = 'bg-yellow-100 text-yellow-800 border-l-4 border-yellow-500';
+            }
+            document.getElementById('decision-box').className = `p-4 rounded-lg ${decisionClass}`;
+            
+            // Populate main data
+            document.getElementById('decision-text').textContent = decision;
+            document.getElementById('P_fraud').textContent = P_fraud.toFixed(4);
+            document.getElementById('T_threshold').textContent = T_threshold.toFixed(4);
+            document.getElementById('confidence').textContent = confidence.toFixed(2);
+            document.getElementById('reasoning').textContent = reasoning;
+            
+            // Populate breakdown
+            const breakdownGrid = document.getElementById('breakdown-grid');
+            breakdownGrid.innerHTML = '';
+
+            for (const [analyzer, score] of Object.entries(forensics_breakdown)) {
+                const item = document.createElement('div');
+                item.className = 'p-3 bg-gray-50 rounded-lg shadow-sm';
+                item.innerHTML = `
+                    <p class="text-xs font-semibold uppercase text-gray-500">${analyzer.toUpperCase()}</p>
+                    <p class="text-xl font-bold text-gray-800">${(score * 100).toFixed(1)}%</p>
+                `;
+                breakdownGrid.appendChild(item);
+            }
+
+            messageBox.classList.add('hidden');
+            resultsDiv.classList.remove('hidden');
+        };
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            submitButton.disabled = true;
+            buttonText.innerHTML = '<span class="loading-ring mr-2"></span> Analyzing...';
+            messageBox.classList.add('hidden');
+            resultsDiv.classList.add('hidden');
+
+            const userId = document.getElementById('user_id').value;
+            const imageFile = document.getElementById('image').files[0];
+            
+            // FormData preparation for multipart request
+            const formData = new FormData();
+            formData.append('user_id', userId);
+            formData.append('image', imageFile);
+
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    body: formData,
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    displayResult(data);
+                } else {
+                    // FastAPI will return 400s or 422s for validation/server errors
+                    showMessage(`[API Error ${response.status}] ${data.detail || 'Unknown server error.'}`, 'error');
+                }
+
+            } catch (error) {
+                console.error('Fetch Error:', error);
+                showMessage('Network error or server connection failed. Check your Uvicorn console.', 'error');
+            } finally {
+                checkInputs(); // Re-enable if inputs are still valid
+                buttonText.textContent = 'Analyze Claim Image';
+            }
+        });
+    </script>
+</body>
+</html>
