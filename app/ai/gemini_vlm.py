@@ -1,14 +1,12 @@
-# gemini_vlm.py - FINAL, STABLE VERSION (Uses requests for direct HTTP call)
-
 import os
 import time
 import re 
-import base64 # Required for encoding image data
-import requests # Required for direct API call
+import base64 
+import requests 
 from dotenv import load_dotenv
 from PIL import Image
 from google.api_core.exceptions import GoogleAPICallError 
-from io import BytesIO # Required for processing image bytes
+from io import BytesIO 
 
 load_dotenv()
 
@@ -24,7 +22,7 @@ def get_vlm_reasoning_score(image_path: str) -> float:
     
     SAFER_FALLBACK = 0.5 
     
-    # --- Data Preparation (Encode Image to Base64) ---
+    
     try:
         img = Image.open(image_path)
         buffer = BytesIO()

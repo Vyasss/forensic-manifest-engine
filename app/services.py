@@ -8,7 +8,7 @@ from .ai.gemini_vlm import get_vlm_reasoning_score
 
 load_dotenv()
 
-FIXED_AI_THRESHOLD = 0.19
+FIXED_AI_THRESHOLD = 0.5
 
 def analyze_image_forensics(image_path: str) -> dict:
     """Multi-signal forensic analysis."""
@@ -93,8 +93,8 @@ def check_ai_status(image_path: str) -> dict:
     forensics = analyze_image_forensics(image_path)
     P_synthetic = forensics['P_fraud']
     
-    # Simple threshold: 0.5
-    threshold = 0.5
+    
+    threshold = 0.106
     
     if P_synthetic > threshold:
         decision = "AI_GENERATED"

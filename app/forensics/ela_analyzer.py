@@ -41,7 +41,6 @@ def get_ela_score(image_path: str) -> float:
     os.close(fd)
     
     try:
-        # Load and save original image
         original = Image.open(image_path).convert('RGB')
         original.save(temp_path, 'JPEG', quality=ELA_QUALITY)
         recompressed = Image.open(temp_path).convert('RGB')
