@@ -1,9 +1,15 @@
+<<<<<<< HEAD
 # Forensic Manifest: Verifiable AI-Generated Content (AIGC) Forensics Engine
 
 ([https://img.shields.io/badge/Status-Developing-yellow.svg](https://www.google.com/search?q=https://img.shields.io/badge/Status-Developing-yellow.svg))]([https://github.com/Vyasss/forensic-manifest-engine](https://github.com/Vyasss/forensic-manifest-engine))
 ([https://img.shields.io/badge/License-MIT-blue.svg](https://www.google.com/search?q=https://img.shields.io/badge/License-MIT-blue.svg))](LICENSE)
 
 **Forensic Manifest** is an advanced, multi-modal digital evidence platform engineered to solve the rapidly escalating threat of AI-driven financial fraud across high-volume commerce sectors. Our core mission is to move beyond simple, vulnerable classification models to establish a **verifiable forensic reasoning engine** that generates high-integrity proof necessary for automated, high-stakes commercial decision-making.
+=======
+# Forensic Manifest:  AI-Generated Content (AIGC) Forensics Engine
+
+**Forensic Manifest** is an advanced, multi-modal digital evidence platform engineered to solve the rapidly escalating threat of AI-driven financial fraud across high-volume commerce sectors. My core mission is to move beyond simple, vulnerable classification models to establish a **verifiable forensic reasoning engine** that generates high-integrity proof necessary for automated, high-stakes commercial decision-making.
+>>>>>>> 3a1bbd1bcbbf65e4aa814d153498fd055455dbe7
 
 The system is designed to serve as a crucial, trusted oracle, generating cryptographically durable evidence that ensures financial integrity and prevents fraudulent refund claims across e-commerce, food delivery, and logistics platforms.
 
@@ -31,7 +37,11 @@ To counter sophisticated, AI-driven fraud, **Forensic Manifest** leverages a con
 
 **Forensic Manifest** is currently in the active development phase. The architectural core, which includes multi-modal forensic fusion and VLM-based reasoning, is established and being optimized.
 
+<<<<<<< HEAD
 The immediate roadmap is heavily focused on achieving **extreme robustness** and scientific generalizability. We are actively refining the feature extraction and reasoning protocols to ensure the system can reliably distinguish subtle AI artifacts from the common noise introduced by low-resolution uploads and lossy compression—the primary challenge for this high-volume fraud detection scenario.[5]
+=======
+The immediate roadmap is heavily focused on achieving **extreme robustness** and scientific generalizability. I am actively refining the feature extraction and reasoning protocols to ensure the system can reliably distinguish subtle AI artifacts from the common noise introduced by low-resolution uploads and lossy compression—the primary challenge for this high-volume fraud detection scenario.[5]
+>>>>>>> 3a1bbd1bcbbf65e4aa814d153498fd055455dbe7
 
 ## Technology Stack and File Structure
 
@@ -46,6 +56,7 @@ The project utilizes a high-performance Python environment structured for scalab
 | **API Framework** | `main.py`, `schemas.py`, `services.py` | FastAPI application for high-throughput, asynchronous service hosting (ASGI). |
 | **Interface/Deployment** | Uvicorn, Gradio, Python `venv` | High-performance ASGI server, rapid prototyping UI, and isolated environment management. |
 
+<<<<<<< HEAD
 ### File Structure Overview
 
 .
@@ -67,10 +78,13 @@ The project utilizes a high-performance Python environment structured for scalab
 
 ````
 
+=======
+>>>>>>> 3a1bbd1bcbbf65e4aa814d153498fd055455dbe7
 -----
 
 ## About the Author
 
+<<<<<<< HEAD
 **Forensic Manifest** was conceptualized and developed by:
 
 **Chetan Vyas**
@@ -123,3 +137,12 @@ To test on a mobile device or separate machine (on the same Wi-Fi network):
 
 ```
 ```
+=======
+**Forensic Manifest** developed by:
+
+**Chetan Vyas**
+
+linkedin.com/in/chetanvyas20
+
+
+>>>>>>> 3a1bbd1bcbbf65e4aa814d153498fd055455dbe7
