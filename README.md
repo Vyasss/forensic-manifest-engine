@@ -1,7 +1,4 @@
-# Forensic Manifest: Verifiable AI-Generated Content (AIGC) Forensics Engine
-
-([https://img.shields.io/badge/Status-Developing-yellow.svg](https://www.google.com/search?q=https://img.shields.io/badge/Status-Developing-yellow.svg))]([https://github.com/Vyasss/forensic-manifest-engine](https://github.com/Vyasss/forensic-manifest-engine))
-([https://img.shields.io/badge/License-MIT-blue.svg](https://www.google.com/search?q=https://img.shields.io/badge/License-MIT-blue.svg))](LICENSE)
+# Forensic Manifest:  AI-Generated Content (AIGC) Forensics Engine
 
 **Forensic Manifest** is an advanced, multi-modal digital evidence platform engineered to solve the rapidly escalating threat of AI-driven financial fraud across high-volume commerce sectors. Our core mission is to move beyond simple, vulnerable classification models to establish a **verifiable forensic reasoning engine** that generates high-integrity proof necessary for automated, high-stakes commercial decision-making.
 
@@ -46,77 +43,17 @@ The project utilizes a high-performance Python environment structured for scalab
 | **API Framework** | `main.py`, `schemas.py`, `services.py` | FastAPI application for high-throughput, asynchronous service hosting (ASGI). |
 | **Interface/Deployment** | Uvicorn, Gradio, Python `venv` | High-performance ASGI server, rapid prototyping UI, and isolated environment management. |
 
-### File Structure Overview
-
-.
-├──.gitignore
-├── requirements.txt
-├── app/
-│   ├── ai/
-│   │   └── forensics/
-│   │       ├── ela\_analyzer.py
-│   │       ├── frequency\_analyzer.py
-│   │       ├── prnu\_analyzer.py
-│   │   └── gemini\_vlm.py
-│   ├── main.py
-│   ├── schemas.py
-│   └── services.py
-├── Frontend/
-├── data/
-└── venv/
-
-````
-
 -----
 
 ## About the Author
 
-**Forensic Manifest** was conceptualized and developed by:
+**Forensic Manifest** developed by:
 
 **Chetan Vyas**
 
-[Connect with me on LinkedIn]
+linkedin.com/in/chetanvyas20
 
 -----
-
-## Getting Started
-
-### Prerequisites
-
-*   Python 3.9+
-*   Uvicorn (ASGI server)
-
-### 1\. Environment Setup
-
-```bash
-# 1. Create and activate the virtual environment
-python -m venv venv
-# On Windows
-.\venv\Scripts\activate
-# On macOS/Linux
-source venv/bin/activate
-
-# 2. Install dependencies (requires Uvicorn for deployment)
-pip install -r requirements.txt
-pip install "uvicorn[standard]"
-````
-
-### 2\. Running the Server
-
-To run the application and expose it to your local network for internal testing and rapid iteration, use the `0.0.0.0` host binding:
-
-```bash
-# Run the application:
-uvicorn main:app --host 0.0.0.0 --port 8000
-```
-
-**Accessing the Application:**
-
-To test on a mobile device or separate machine (on the same Wi-Fi network):
-
-1.  Determine your computer's local IP address (e.g., `192.168.1.100`).
-2.  Open the browser on the testing device:
-      * **Frontend:** `http://<Your_Local_IP>:8000`
       * **API Docs:** `http://<Your_Local_IP>:8000/docs`
 
 <!-- end list -->
