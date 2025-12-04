@@ -10,3 +10,4 @@ temp_*
 data/
 venv/
 .vscode/
+.gradio/
